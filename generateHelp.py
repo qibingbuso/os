@@ -2,12 +2,29 @@
 
 import json
 import requests
+import re
 
-def geneEachHelp(keyWord):
-    print 'geneHelp...'
-    url = 'https://www.google.com/?gws_rd=ssl#newwindow=1&q=%s+site:cateee.net' %(keyWord)
-    html = requests.get()
+def geneHelp(config, resConfig):
+    print 'genelate note....'
+    f = open(config)
+    res = open(resConfig, 'w')
+    i = 1
+    try:
+        allLines = f.readlines()
+        for line in allLines:
+            line = line.replace('#', '//')
+            pattern = re.compile('CONFIG_[\w_]+')
+            match = pattern.search(line)
+            if match:
+                keyWord = match.group()
+                res.write(line.replace(keyWord, '[%s](http://cateee.net/lkddb/web-lkddb/%s.html)' % (keyWord, keyWord) ))
+            else:
+                res.write(line)
+            i += 1
+    finally:
+        f.close()
+        res.close()
 
 
 if __name__=='__main__':
-    geneHelp()
+    geneHelp('a.config', 'help.md')
