@@ -12,7 +12,7 @@ def geneHelp(config, resConfig):
     try:
         allLines = f.readlines()
         for line in allLines:
-            line = line.replace('#', '//')
+            line = line.replace('#', '//')+'\n'
             pattern = re.compile('CONFIG_[\w_]+')
             match = pattern.search(line)
             if match:
