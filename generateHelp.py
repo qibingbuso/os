@@ -17,7 +17,7 @@ def geneHelp(config, resConfig):
             match = pattern.search(line)
             if match:
                 keyWord = match.group()
-                res.write(line.replace(keyWord, '[%s](http://cateee.net/lkddb/web-lkddb/%s.html)' % (keyWord, keyWord) ))
+                res.write(line.replace(keyWord, '[%s](http://cateee.net/lkddb/web-lkddb/%s.html)' % (keyWord, keyWord[len('CONFIG_'):]) ))
             else:
                 res.write(line)
             i += 1
